@@ -1,0 +1,14 @@
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.exe
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.deps.json
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.runtimeconfig.json
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.dll
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.pdb
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.AssemblyInfoInputs.cache
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.AssemblyInfo.cs
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.csproj.CoreCompileInputs.cache
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.dll
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\refint\MyLearningApp.dll
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.pdb
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.genruntimeconfig.cache
+C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\ref\MyLearningApp.dll
