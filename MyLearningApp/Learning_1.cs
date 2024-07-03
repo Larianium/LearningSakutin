@@ -1,5 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 //Console.WriteLine("Hello, World!");
+
+/*Объявите переменную, которая хранит массив, тип
+элементов у которого string и поместите туда ссылку
+на новый массив с типом элементов string,
+размерностью в 5 элементов.
+Далее, через оператор индексации,
+проинициализируйте каждый элемент*/
+
 string[] array = new string[5];
 string[] array2 = array;
 
@@ -9,3 +17,85 @@ for (int i = 0; i < array.Length; i++)
     Console.WriteLine(array2[i]);    
 }
 
+Console.WriteLine("________________________________________");
+/*Напишите программу, которая выведет сумму всех
+элементов массива.
+*/
+int[] numbers = new int[3];
+numbers[0] = 1;
+numbers[1] = 15;
+numbers[2] = 2;
+
+for (int i = 0; i < numbers.Length;i++)
+{
+    Console.WriteLine(numbers[i]); 
+}
+
+Console.WriteLine("________________________________________");
+/*Напишите программу, которая выведет сумму всех
+элементов массива.
+*/
+int[] numbers_2 = new int[3];
+int sum;
+
+numbers_2[0] = 1;
+numbers_2[1] = 15;
+numbers_2[2] = 2;
+
+sum = numbers_2.Sum();
+Console.WriteLine(sum);
+
+Console.WriteLine("________________________________________");
+/*Напишите программу, которая выведет
+максимальное число в массиве.*/
+
+
+int[] numbers_3 = new int[3];
+int max;
+
+numbers_3[0] = 1;
+numbers_3[1] = 15;
+numbers_3[2] = 2;
+
+max = numbers_3.Max();
+Console.WriteLine(max);
+
+Console.WriteLine("________________________________________");
+/*Пример 2-х мерного массива*/
+
+int[,] map = new int[3, 3];
+map[0, 0] = 1;
+map[1, 0] = 2;
+map[2, 0] = 3;
+map[0, 1] = 1;
+map[2, 1] = 3;
+map[0, 2] = 1;
+map[1, 2] = 2;
+map[2, 2] = 3;
+for(int x = 0; x < map.GetLength(0); x++)
+{
+    for(int y = 0;y < map.GetLength(1); y++)
+    {
+        Console.Write(map[x,y]);
+    }
+    Console.WriteLine();
+}
+
+Console.WriteLine("________________________________________");
+/*Массив массивов/кортеж */
+
+string[][] street = new string[][]
+    {
+    new string[] { "Mary", "Thomas" },
+    new string[] { "Carl" },
+    new string[] { "Bob", "Jhonatan", "Alex"}
+    };
+
+for(int i = 0; i < street.Length; i++)
+{
+    Console.WriteLine($"Дом {i + 1}:");
+    for(int p = 0; p < street[i].Length; p++)
+    {
+        Console.WriteLine(street[i][p]);
+    }
+}
