@@ -99,3 +99,50 @@ for(int i = 0; i < street.Length; i++)
         Console.WriteLine(street[i][p]);
     }
 }
+
+Console.WriteLine("________________________________________");
+/*Пример*/
+int     countStr;
+ //       checklengthChar;
+string  textInput,
+        textNotification = "Введите текст",
+        character = "Введите искомый символ",
+        textError = "Символ не введён!",
+        checkEnterChar;
+Char    ch;
+
+
+Console.WriteLine(textNotification);
+textInput = Console.ReadLine();
+
+Console.WriteLine(character);
+//ch = Console.ReadKey(false).KeyChar;
+//ch = Console.ReadLine()[0];
+checkEnterChar = Console.ReadLine();
+//checklengthChar = checkEnterChar.Length;
+
+//if(ch == '\0')
+//if(checklengthChar < 1)
+if(string.IsNullOrEmpty(checkEnterChar))
+{
+    Console.WriteLine(textError);
+    return;
+}
+
+ch = checkEnterChar[0];
+
+countStr = GetSymbolCount(textInput, ch);
+Console.WriteLine($"В ведённом тексте: {textInput}, символ {ch} повторяется {countStr} раз(a)");
+
+static int GetSymbolCount(string text, char symbol)
+{
+    int count = 0;
+    for(int i = 0; i < text.Length; i++)
+    {
+        if(text[i] == symbol)
+        {
+            count++;
+        }
+    }
+    return count;
+}
