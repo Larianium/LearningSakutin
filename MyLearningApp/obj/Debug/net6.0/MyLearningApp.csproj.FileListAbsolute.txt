@@ -12,3 +12,18 @@ C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\ref
 C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.pdb
 C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.genruntimeconfig.cache
 C:\Users\aleshkin\My projects\LearningSakutin\MyLearningApp\obj\Debug\net6.0\ref\MyLearningApp.dll
+d:\Learning_IT\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.exe
+d:\Learning_IT\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.deps.json
+d:\Learning_IT\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.runtimeconfig.json
+d:\Learning_IT\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.dll
+d:\Learning_IT\LearningSakutin\MyLearningApp\bin\Debug\net6.0\MyLearningApp.pdb
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.csproj.AssemblyReference.cache
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.GeneratedMSBuildEditorConfig.editorconfig
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.AssemblyInfoInputs.cache
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.AssemblyInfo.cs
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.csproj.CoreCompileInputs.cache
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.dll
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\refint\MyLearningApp.dll
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.pdb
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\MyLearningApp.genruntimeconfig.cache
+d:\Learning_IT\LearningSakutin\MyLearningApp\obj\Debug\net6.0\ref\MyLearningApp.dll

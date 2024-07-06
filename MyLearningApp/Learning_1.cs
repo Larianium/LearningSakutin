@@ -146,3 +146,6 @@ static int GetSymbolCount(string text, char symbol)
     }
     return count;
 }
+
+
+
