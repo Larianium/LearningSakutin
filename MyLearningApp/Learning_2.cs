@@ -1,6 +1,6 @@
-class Program_1
+public class TankAction
 {
-    void tankMethod()
+    public void tankMethod()
     {
         Tank    tank1 = new Tank();
         int     tankSpeed;
@@ -12,20 +12,64 @@ class Program_1
         tank1.Speed = tankSpeed;
         tank1.MoveRight();
         tank1.MoveRight();
-        Console.WriteLine(tank1.PositionX);
+        Console.WriteLine(tank1.GetPositionX());
     }
 }
 
 class Tank
 {
     public int Speed;
-    public int PositionX;
+    private int _positionX;
     public void MoveLeft()
     {
-        PositionX -= Speed;
+        _positionX -= Speed;
     }
     public void MoveRight()
     {
-        PositionX += Speed;
+        _positionX += Speed;
+    }
+
+    public int GetPositionX()
+    {
+        return _positionX;
+    }
+}
+
+
+class Boundary
+{
+    public bool IsAvailable(int positionX);
+}
+
+class Tank_2
+{
+    public int Speed;
+    private int _positionX;
+    private Boundary _boundary;
+    public void TankBoundary(Boundary boundary)
+    {
+        _boundary = boundary;
+    }
+    public void MoveLeft()
+    {
+        Move(Speed * -1);
+    }
+    public void MoveRight()
+    {
+        Move(Speed);
+    }
+
+    private void Move(int delta)
+    {
+        if (_boundary.IsAvailable(_positionX + delta))
+        {
+            _positionX += delta;
+            _boundary.IsAvailable(10);
+        }
+        
+    }
+    public int GetPositionX()
+    {
+        return _positionX;
     }
 }

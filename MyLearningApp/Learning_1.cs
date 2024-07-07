@@ -147,5 +147,8 @@ static int GetSymbolCount(string text, char symbol)
     return count;
 }
 
+TankAction TankAction = new TankAction();
+Tank Tank = new Tank();
 
+TankAction.tankMethod();
 
