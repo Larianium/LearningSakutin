@@ -39,7 +39,15 @@ class Tank
 
 class Boundary
 {
-    public bool IsAvailable(int positionX);
+    public bool IsAvailable(int positionX)
+    {
+        bool ret;
+        if(positionX > 100 || positionX < 0)
+            ret = false;
+        else
+            ret = true;
+        return ret;
+    }
 }
 
 class Tank_2
@@ -47,6 +55,13 @@ class Tank_2
     public int Speed;
     private int _positionX;
     private Boundary _boundary;
+
+    public Tank_2(int speed, int positionX)
+    {
+        Speed = speed;
+        _positionX = positionX;
+    }
+
     public void TankBoundary(Boundary boundary)
     {
         _boundary = boundary;

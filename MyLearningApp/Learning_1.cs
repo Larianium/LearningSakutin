@@ -156,6 +156,10 @@ Tank Tank = new Tank();
 TankAction.tankMethod();
 */
 
+Tank_2 Tank_2 = new Tank_2(10,0);
+Console.WriteLine(Tank_2.GetPositionX());
+
+
 Console.WriteLine("Warning!", ConsoleColor.Yellow);
 Console.WriteLine("Error!", ConsoleColor.Red);
 
