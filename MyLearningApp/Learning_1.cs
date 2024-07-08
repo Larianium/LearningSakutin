@@ -101,7 +101,8 @@ for(int i = 0; i < street.Length; i++)
 }
 
 Console.WriteLine("________________________________________");
-/*Пример*/
+/*
+//Пример
 int     countStr;
  //       checklengthChar;
 string  textInput,
@@ -146,9 +147,26 @@ static int GetSymbolCount(string text, char symbol)
     }
     return count;
 }
+*/
 
+/*
 TankAction TankAction = new TankAction();
 Tank Tank = new Tank();
 
 TankAction.tankMethod();
+*/
+
+Console.WriteLine("Warning!", ConsoleColor.Yellow);
+Console.WriteLine("Error!", ConsoleColor.Red);
+
+WriteColoredMessage("Warning!", ConsoleColor.Red);
+static void WriteColoredMessage(string message, ConsoleColor color)
+{
+    ConsoleColor oldColor = Console.ForegroundColor;
+    Console.ForegroundColor = color;
+
+    Console.WriteLine(message);
+    Console.ForegroundColor = oldColor;
+}
+
 

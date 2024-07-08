@@ -1,3 +1,4 @@
+/*
 public class TankAction
 {
     public void tankMethod()
@@ -34,7 +35,7 @@ class Tank
         return _positionX;
     }
 }
-
+*/
 
 class Boundary
 {
