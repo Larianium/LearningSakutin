@@ -89,3 +89,26 @@ class Tank_2
         return _positionX;
     }
 }
+
+
+class Gun
+{
+    public int CurrentBullet;
+
+    public List<string> Bullets;
+    public void Shot()
+    {
+        if (CurrentBullet >= Bullets.Count)
+            return;
+
+        Console.WriteLine(Bullets[CurrentBullet]);
+        CurrentBullet++;
+    }
+    public void Reload(List<string>bullets = null)
+    {
+        if (bullets == null)
+            Bullets = bullets;
+        
+        CurrentBullet = 0;  
+    }
+}
