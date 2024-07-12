@@ -159,11 +159,13 @@ TankAction.tankMethod();
 //Tank_2 Tank_2 = new Tank_2(10,0);
 //Console.WriteLine(Tank_2.GetPositionX());
 
-Gun gun = new Gun();
-//gun.Bullets[0] = 1; 
+/*
+Gun gun = new Gun(new List<int> {1,2,5});
+//gun.Reload(new List<int> {1,2,5});
+//gun.Bullets[0] = "10"; 
 gun.Shot();
 gun.Reload();
-
+*/
 
 /*
 Console.WriteLine("Warning!", ConsoleColor.Yellow);
@@ -179,4 +181,23 @@ static void WriteColoredMessage(string message, ConsoleColor color)
     Console.ForegroundColor = oldColor;
 }
 */
+
+// Warrior Warrior = new Warrior(100, 110);
+// Knight  Knight = new Knight(150, 200);
+// Barbarian Barbarian = new Barbarian(198,100, 15);
+// Warrior.Health = 105;
+// Warrior.TakeDamage(15);
+// Knight.TakeDamage(20);
+// Barbarian.Waaaagh();
+
+
+Gun gun = new Gun();
+Player player1 = new Player(250),
+       player2 = new Player(200);
+Battle Battle = new Battle(gun, new Player[] { player1, player2 });
+//player1.
+gun.Fire(player1);
+Battle.Simulate();
+
+
 

@@ -1,3 +1,5 @@
+//________________________________________________________________
+//Пример
 /*
 public class TankAction
 {
@@ -37,6 +39,9 @@ class Tank
 }
 */
 
+//________________________________________________________________
+//Пример
+/*
 class Boundary
 {
     public bool IsAvailable(int positionX)
@@ -49,6 +54,7 @@ class Boundary
         return ret;
     }
 }
+
 
 class Tank_2
 {
@@ -89,13 +95,22 @@ class Tank_2
         return _positionX;
     }
 }
+*/
 
-
+//________________________________________________________________
+//Пример
+/*
 class Gun
 {
-    public int CurrentBullet;
+    public int CurrentBullet { get; private set; }
+    public List<int> Bullets { get; private set; }
 
-    public List<string> Bullets;
+    public Gun(List<int> bullets = null) 
+    {
+        Bullets = bullets ?? new List<int>();
+        CurrentBullet = 0;
+    }
+
     public void Shot()
     {
         if (CurrentBullet >= Bullets.Count)
@@ -104,11 +119,114 @@ class Gun
         Console.WriteLine(Bullets[CurrentBullet]);
         CurrentBullet++;
     }
-    public void Reload(List<string>bullets = null)
+    public void Reload(List<int> bullets = null)
     {
-        if (bullets == null)
-            Bullets = bullets;
-        
+        Bullets = bullets ?? new List<int>();        
         CurrentBullet = 0;  
     }
 }
+*/
+
+//________________________________________________________________
+//Пример
+// class Warrior
+// {
+//     public int Health;
+//     public int Armor;
+//     public Warrior(int health, int armor)
+//     {
+//         Health = health;
+//         Armor = armor;
+//     }
+//     public void TakeDamage(int damage)
+//     {
+//         Health -= damage - Armor;
+//         Console.WriteLine($"Жизнь: {Health}");
+//     }
+// }
+
+// class Knight : Warrior
+// {
+//     public Knight(int health, int armor) : base(health, armor) 
+//     { 
+
+//     }
+//     public void Pray()
+//     {
+//         Armor += 1;
+//         Console.WriteLine($"Жизнь: {Armor}");
+//     }
+// }
+
+// class Barbarian : Warrior
+// {
+//     public int LenghtOfAxe;
+//     public Barbarian(int health, int armor, int lenghtOfAxe) : base(health, armor)
+//     {
+//         LenghtOfAxe = lenghtOfAxe;
+//     }
+
+//     // public Barbarian(int armor, int lenghtOfAxe) : base(100, armor)
+//     // {
+//     //     LenghtOfAxe = lenghtOfAxe;
+//     // }
+
+//     public void Waaaagh()
+//     {
+//         Health += 10;
+//         Armor -= 1;
+//         Console.WriteLine($"Жизнь: {Health}");
+//         Console.WriteLine($"Жизнь: {Armor}");
+//     }
+// }
+
+
+
+class Player
+{
+    private float _health; 
+    public Player(float health)
+    {
+        _health = health;
+    }
+
+    public void ApplyDamage(float amount)
+    {
+        _health -= amount;
+    }
+}
+class Gun
+{
+    private int _bullets;
+    private float _damage;
+    public void Fire(Player player)
+    {
+        Console.WriteLine("Ввести количество патронов: ");
+        _bullets = int.Parse(Console.ReadLine());
+        if (_bullets <= 0)
+            return;
+        _damage = _bullets * 5;
+        player.ApplyDamage(_damage);
+        _bullets--; 
+    }
+}
+
+class Battle
+{
+    private Gun _gun;
+    private Player[] _players;
+    public Battle(Gun gun, Player[] players)
+    {
+        _gun = gun;
+        _players = players; 
+    }
+    public void Simulate()
+    {
+        foreach (var player in _players)
+        {
+            _gun.Fire(player);
+        }
+    }
+}
+
+
