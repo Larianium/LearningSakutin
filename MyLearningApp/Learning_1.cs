@@ -191,13 +191,39 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 // Barbarian.Waaaagh();
 
 
-Gun gun = new Gun();
-Player player1 = new Player(250),
-       player2 = new Player(200);
-Battle Battle = new Battle(gun, new Player[] { player1, player2 });
-//player1.
-gun.Fire(player1);
-Battle.Simulate();
+// Gun gun = new Gun();
+// Player player1 = new Player(250),
+//        player2 = new Player(200);
+// Battle Battle = new Battle(gun, new Player[] { player1, player2 });
+// //player1.
+// gun.Fire(player1);
+// Battle.Simulate();
+
+
+// Gun gun = new Gun();
+// Player player1 = new Player();
+// gun.Fire(player1);
+// gun = new Bow();
+// gun.Fire(player1);
+// gun.Fire(player1);
+// Battle battle = new Battle(new Pistol(), new Player[] { player1 });
+// battle.Simulate();
+
+
+// A a = new C();
+// a.Do(); //1
+
+// a = new B();
+// a.Do(); //2
+
+
+// Gun gun = new Gun();
+// Player player = new Player();
+// player.PickUp(gun);
+
+
+
+
 
 
 

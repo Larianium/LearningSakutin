@@ -182,51 +182,214 @@ class Gun
 
 
 
+//________________________________________________________________
+//Пример
+// class Player
+// {
+//     private float _health; 
+//     public Player(float health)
+//     {
+//         _health = health;
+//     }
+
+//     public void ApplyDamage(float amount)
+//     {
+//         _health -= amount;
+//     }
+// }
+// class Gun
+// {
+//     private int _bullets;
+//     private float _damage;
+//     public void Fire(Player player)
+//     {
+//         Console.WriteLine("Ввести количество патронов: ");
+//         _bullets = int.Parse(Console.ReadLine());
+//         if (_bullets <= 0)
+//             return;
+//         _damage = _bullets * 5;
+//         player.ApplyDamage(_damage);
+//         _bullets--; 
+//     }
+// }
+
+// class Battle
+// {
+//     private Gun _gun;
+//     private Player[] _players;
+//     public Battle(Gun gun, Player[] players)
+//     {
+//         _gun = gun;
+//         _players = players; 
+//     }
+//     public void Simulate()
+//     {
+//         foreach (var player in _players)
+//         {
+//             _gun.Fire(player);
+//         }
+//     }
+// }
+
+//________________________________________________________________
+//Пример
+// class Battle
+// {
+//     private Gun _gun;
+//     private Player[] _players;
+//     public Battle(Gun gun, Player[] players)
+//     {
+//         _gun = gun;
+//         _players = players;
+//     }
+//     public void Simulate()
+//     {
+//         foreach (var player in _players)
+//         {
+//             _gun.Fire(player);
+//         }
+//     }
+// }
+// class Player
+// {
+//     private float _health;
+//     public void ApplyDamage(float amount)
+//     {
+//         _health -= amount;
+//     }
+// }
+// class Gun
+// {
+//     private int _bullets;
+//     protected float Damage;
+//     public virtual void Fire(Player player)
+//     {
+//         if (_bullets <= 0)
+//             return;
+//         player.ApplyDamage(Damage);
+//         _bullets--;
+//     }
+// }
+// class Pistol : Gun
+// {
+//     public override void Fire(Player player)
+//     {
+//         player.ApplyDamage(Damage);
+//     }
+// }
+// class Bow : Gun
+// {
+//     public override void Fire(Player player)
+//     {
+//         base.Fire(player);
+//         Damage /= 2;
+//     }
+// }
+
+
+//________________________________________________________________
+//Пример
+// class A
+// {
+//     public virtual void Do() => Console.WriteLine("A");
+// }
+// class B : A
+// {
+//     public virtual void Do() => Console.WriteLine("B");
+// }
+// class C : B
+// {
+//     public override void Do() => Console.WriteLine("C");
+// }
+
+
+//________________________________________________________________
+//Пример
+
+// class Gun : IInventoryHandler
+// {
+//     private int _bullets;
+//     protected float Damage;
+//     public virtual void Fire(Player player)
+//     {
+//         if (_bullets <= 0)
+//             return;
+//         player.ApplyDamage(Damage);
+//         _bullets--;
+//     }
+//     public void OnPickup()
+//     {
+//         //off scene model
+//     }
+//     public void OnDrop()
+//     {
+//         //on scene model
+//     }
+// }
+
 class Player
 {
-    private float _health; 
-    public Player(float health)
-    {
-        _health = health;
-    }
-
+    private float _health;
+    private List<IInventoryHandler> _inventory = new List<IInventoryHandler>();
     public void ApplyDamage(float amount)
     {
         _health -= amount;
     }
-}
-class Gun
-{
-    private int _bullets;
-    private float _damage;
-    public void Fire(Player player)
+    public void PickUp(IInventoryHandler item)
     {
-        Console.WriteLine("Ввести количество патронов: ");
-        _bullets = int.Parse(Console.ReadLine());
-        if (_bullets <= 0)
-            return;
-        _damage = _bullets * 5;
-        player.ApplyDamage(_damage);
-        _bullets--; 
+        _inventory.Add(item);
+        item.OnPickup();
     }
 }
 
-class Battle
+interface IInventoryHandler
 {
-    private Gun _gun;
-    private Player[] _players;
-    public Battle(Gun gun, Player[] players)
+    void OnPickup();
+    void OnDrop();
+}
+
+abstract class Tower
+{
+    private Player _target;
+    public void Update()
     {
-        _gun = gun;
-        _players = players; 
-    }
-    public void Simulate()
+    if(_target == null)
     {
-        foreach (var player in _players)
+        foreach (var player in GetClosestPlayers())
         {
-            _gun.Fire(player);
+            if(CanAttack(player))
+            {
+                _target = player;
+                break;
+            }
         }
     }
+    if (_target != null) 
+        Attack(_target);
+    }
+    protected abstract bool CanAttack(Player player);
+    protected abstract void Attack(Player player);
+    private IEnumerable<Player>
+    GetClosestPlayers()
+    {
+        throw new NotImplementedException();
+    }
 }
+class ArcherTower : Tower
+{
+    protected override void Attack(Player player)
+    {
+        player.ApplyDamage(2);
+    }
+    protected override bool CanAttack(Player player)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+
+
+
 
 
