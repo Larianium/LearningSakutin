@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "7sVgA3x1y/XCrVMLdfWojYnyohHwv6faCl8F7TtSo1Zt83GRMg+VueJ0u64DfmmXJjaZmSxnp2iC/OGUlrrWng==",
+  "dgSpecHash": "R3qH/FZPs8ggFGwjTSgYHHFHlD2Us61HdCu1nNW93zAgSDwHq85HqFlYVfq6aYzJ/rvA0Rog6y5XjGgw1oiTYg==",
   "success": true,
-  "projectFilePath": "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
+  "projectFilePath": "c:\\Users\\aleshkin\\My projects\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Наталия\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
-    "C:\\Users\\Наталия\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.11\\microsoft.windowsdesktop.app.ref.6.0.11.nupkg.sha512",
-    "C:\\Users\\Наталия\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.11\\microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512",
-    "C:\\Users\\Наталия\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.11\\microsoft.netcore.app.host.win-x64.6.0.11.nupkg.sha512"
+    "C:\\Users\\aleshkin\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.29\\microsoft.netcore.app.ref.6.0.29.nupkg.sha512",
+    "C:\\Users\\aleshkin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.29\\microsoft.windowsdesktop.app.ref.6.0.29.nupkg.sha512",
+    "C:\\Users\\aleshkin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.29\\microsoft.aspnetcore.app.ref.6.0.29.nupkg.sha512",
+    "C:\\Users\\aleshkin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.29\\microsoft.netcore.app.host.win-x64.6.0.29.nupkg.sha512"
   ],
   "logs": []
 }
