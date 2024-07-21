@@ -358,8 +358,9 @@ int[] availableQuantity = { 5, 2};
 
 PaymentType payment = PaymentType.Card;
 string command = "";
+Boolean Enter = true;
 
-while (true)
+while (Enter)
 {
     Console.Clear();
     Console.WriteLine($"Баланс {balance}");
@@ -437,7 +438,7 @@ while (true)
     {
         Console.WriteLine("Команда не определена");
     }
-
+    Enter = Boolean.Parse(Console.ReadLine()); 
     //Console.ReadKey();
 }
 

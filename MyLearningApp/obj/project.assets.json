@@ -8,24 +8,26 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Наталия\\.nuget\\packages\\": {}
+    "C:\\Users\\Lev\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
+      "projectUniqueName": "D:\\IT\\My_Learning_Projects\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
       "projectName": "MyLearningApp",
-      "projectPath": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
-      "packagesPath": "C:\\Users\\Наталия\\.nuget\\packages\\",
-      "outputPath": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\obj\\",
+      "projectPath": "D:\\IT\\My_Learning_Projects\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
+      "packagesPath": "C:\\Users\\Lev\\.nuget\\packages\\",
+      "outputPath": "D:\\IT\\My_Learning_Projects\\LearningSakutin\\MyLearningApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Наталия\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Lev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -54,30 +56,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.11, 6.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
