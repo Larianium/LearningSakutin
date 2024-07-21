@@ -438,7 +438,7 @@ while (true)
         Console.WriteLine("Команда не определена");
     }
 
-    Console.ReadKey();
+    //Console.ReadKey();
 }
 
 enum PaymentType
