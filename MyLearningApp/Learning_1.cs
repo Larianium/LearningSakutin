@@ -348,7 +348,7 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 //     Card
 // }
 
-VendingMachine vendingMachine = new VendingMachine();
+//VendingMachine vendingMachine = new VendingMachine().;
 Boolean Enter = true;
 
 while (Enter)
@@ -362,7 +362,7 @@ while (Enter)
 }
 
 
-public class VendingMachine
+class VendingMachine
 {
     static int balance = 0;
     static int[] coinsQuantity = { 0, 0, 0, 0}; //1, 2, 5, 10
@@ -442,7 +442,7 @@ public class VendingMachine
         return count < 0 || count > GetAvailableQuantity(id);
     }
 
-    private static string ReadCommand()
+    public static string ReadCommand()
     {
         Console.WriteLine($"Баланс {balance}");
         Console.WriteLine("Введите команду:");
