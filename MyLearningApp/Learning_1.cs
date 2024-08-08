@@ -354,9 +354,12 @@ Boolean Enter = true;
 while (Enter)
 {
     //Console.Clear();
-    Console.WriteLine($"Баланс {balance}");
+    //VendingMachine  vendingMachine = new VendingMachine();   
+    
+    Console.WriteLine($"Баланс {VendingMachine.balance}");
+    //VendingMachine.coinsQuantity = new int[] { 0, 0, 0, 0 };
     string command = VendingMachine.ReadCommand();
-    vendingMachine.ExecuteCommand(command);
+    VendingMachine.ExecuteCommand(command);
     Enter = Boolean.Parse(Console.ReadLine()); 
     //Console.ReadKey();
 }
@@ -364,19 +367,19 @@ while (Enter)
 
 class VendingMachine
 {
-    static int balance = 0;
-    static int[] coinsQuantity = { 0, 0, 0, 0}; //1, 2, 5, 10
-    static int[] coinsValues = { 1, 2, 5, 10};
-    static string[] names = { "Шоколадка", "Газировка" };
-    static int[] prices = { 70, 60 };
-    static int[] availableQuantity = { 5, 2};
+    public static int balance = 0;
+    public static int[] coinsQuantity = { 0, 0, 0, 0}; //1, 2, 5, 10
+    public static int[] coinsValues = { 1, 2, 5, 10};
+    public static string[] names = { "Шоколадка", "Газировка" };
+    public static int[] prices = { 70, 60 };
+    public static int[] availableQuantity = { 5, 2};
 
-    static PaymentType payment = PaymentType.Card;
-    static string command = "";    
-    static int id = 0,
+    public static PaymentType payment = PaymentType.Card;
+    public static string command = "";    
+    public static int id = 0,
                count = 0;
 
-    private static int ReadInt()
+    public static int ReadInt()
     {
         int result = 0;
         while (!int.TryParse(Console.ReadLine(), out result))
@@ -386,7 +389,7 @@ class VendingMachine
         return result;
     }
 
-    private static bool MapParameter(string[] rawParams, out int containter, BuyGoodParameter parameter)
+    public static bool MapParameter(string[] rawParams, out int containter, BuyGoodParameter parameter)
     {
         int index = (int)parameter;
         string name =
@@ -400,17 +403,17 @@ class VendingMachine
         return true;
     }
 
-    private static int GetTotalPrice(int price, int count)
+    public static int GetTotalPrice(int price, int count)
     {
         return price * count;
     }
 
-    private static bool Exist(int id)
+    public static bool Exist(int id)
     {
         return id > 0 && id < names.Length;
     }
     
-    private static void ValidateId(int id)
+    public static void ValidateId(int id)
     {
         if (!Exist(id))
         {
@@ -418,26 +421,26 @@ class VendingMachine
         }
     }
 
-    private static string GetName(int id)
+    public static string GetName(int id)
     {
         ValidateId(id);
         return names[id];
     }
 
 
-    private static int GetPrice(int id)
+    public static int GetPrice(int id)
     {
         ValidateId(id);
         return prices[id];
     }
 
-    private static int GetAvailableQuantity(int id)
+    public static int GetAvailableQuantity(int id)
     {
         ValidateId(id);
         return availableQuantity[id];
     }
 
-    private static bool IsAvailableInQuantity(int id, int count)
+    public static bool IsAvailableInQuantity(int id, int count)
     {
         return count < 0 || count > GetAvailableQuantity(id);
     }
@@ -450,7 +453,7 @@ class VendingMachine
     }
 
 
-    private static void ExecuteCommand(string command)
+    public static void ExecuteCommand(string command)
     {
 
         // Console.Clear();
@@ -560,13 +563,13 @@ class VendingMachine
         //Console.ReadKey();
     }
 
-    enum PaymentType
+    public enum PaymentType
     {
         Coins,
         Card
     }
 
-    enum BuyGoodParameter    
+    public enum BuyGoodParameter    
     {
         Id = 0,
         Count = 1
