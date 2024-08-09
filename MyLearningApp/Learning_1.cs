@@ -392,8 +392,7 @@ class VendingMachine
     public static bool MapParameter(string[] rawParams, out int containter, BuyGoodParameter parameter)
     {
         int index = (int)parameter;
-        string name =
-        Enum.GetName(typeof(BuyGoodParameter), parameter);
+        string name = Enum.GetName(typeof(BuyGoodParameter), parameter);
 
         if (!int.TryParse(rawParams[index], out containter))
         {
