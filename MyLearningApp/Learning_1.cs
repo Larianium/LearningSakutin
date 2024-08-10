@@ -367,17 +367,16 @@ while (Enter)
 
 class VendingMachine
 {
-    public static int balance = 0;
-    public static int[] coinsQuantity = { 0, 0, 0, 0}; //1, 2, 5, 10
-    public static int[] coinsValues = { 1, 2, 5, 10};
-    public static string[] names = { "Шоколадка", "Газировка" };
-    public static int[] prices = { 70, 60 };
-    public static int[] availableQuantity = { 5, 2};
-
-    public static PaymentType payment = PaymentType.Card;
-    public static string command = "";    
-    public static int id = 0,
-               count = 0;
+    public static int           balance           = 0;
+    public static int[]         coinsQuantity     = { 0, 0, 0, 0}; //1, 2, 5, 10
+    public static int[]         coinsValues       = { 1, 2, 5, 10};
+    public static string[]      names             = { "Шоколадка", "Газировка" };
+    public static int[]         prices            = { 70, 60 };
+    public static int[]         availableQuantity = { 5, 2};
+    public static PaymentType   payment           = PaymentType.Card;
+    public static string        command           = "";    
+    public static int           id                = 0,
+                                count             = 0;
 
     public static int ReadInt()
     {
@@ -529,7 +528,7 @@ class VendingMachine
             //     break;
             // }
 
-            if (Exist(id))
+            if (!Exist(id))
             {
                 Console.WriteLine("Такого товара нет");
                 return;
