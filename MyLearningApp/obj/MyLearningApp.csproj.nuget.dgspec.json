@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj": {}
+    "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj": {}
   },
   "projects": {
-    "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj": {
+    "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
+        "projectUniqueName": "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
         "projectName": "MyLearningApp",
-        "projectPath": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
+        "projectPath": "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
         "packagesPath": "C:\\Users\\Наталия\\.nuget\\packages\\",
-        "outputPath": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\obj\\",
+        "outputPath": "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Наталия\\AppData\\Roaming\\NuGet\\NuGet.Config"

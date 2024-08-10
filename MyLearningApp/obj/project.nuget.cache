@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nYXsnL79L3pw4VzrRCkWdBw+kOvKMgPB1a1ZzJkWFyVaFSfaMXNJDAZOP3bZZ+bVaQ6xRPbZmGt0YZAVazaRwQ==",
+  "dgSpecHash": "7sVgA3x1y/XCrVMLdfWojYnyohHwv6faCl8F7TtSo1Zt83GRMg+VueJ0u64DfmmXJjaZmSxnp2iC/OGUlrrWng==",
   "success": true,
-  "projectFilePath": "d:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
+  "projectFilePath": "D:\\Learning_IT\\LearningSakutin\\MyLearningApp\\MyLearningApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Наталия\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
     "C:\\Users\\Наталия\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.11\\microsoft.windowsdesktop.app.ref.6.0.11.nupkg.sha512",

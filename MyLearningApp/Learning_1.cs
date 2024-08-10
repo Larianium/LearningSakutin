@@ -233,6 +233,8 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 // string[]    names             = { "Шоколадка", "Газировка"};
 
 
+//Пример_1 класса VendingMachine
+
 // while (bol)
 // {
 //     //Console.Clear();
@@ -347,245 +349,223 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 //     Coins,
 //     Card
 // }
-
-//VendingMachine vendingMachine = new VendingMachine().;
-Boolean Enter = true;
-
-while (Enter)
-{
-    //Console.Clear();
-    //VendingMachine  vendingMachine = new VendingMachine();   
-    
-    Console.WriteLine($"Баланс {VendingMachine.balance}");
-    //VendingMachine.coinsQuantity = new int[] { 0, 0, 0, 0 };
-    string command = VendingMachine.ReadCommand();
-    VendingMachine.ExecuteCommand(command);
-    Enter = Boolean.Parse(Console.ReadLine()); 
-    //Console.ReadKey();
-}
+//__________________________________________________________________________
 
 
-class VendingMachine
-{
-    public static int           balance           = 0;
-    public static int[]         coinsQuantity     = { 0, 0, 0, 0}; //1, 2, 5, 10
-    public static int[]         coinsValues       = { 1, 2, 5, 10};
-    public static string[]      names             = { "Шоколадка", "Газировка" };
-    public static int[]         prices            = { 70, 60 };
-    public static int[]         availableQuantity = { 5, 2};
-    public static PaymentType   payment           = PaymentType.Card;
-    public static string        command           = "";    
-    public static int           id                = 0,
-                                count             = 0;
+////Пример_2 оптимизированный класса VendingMachine
+// Boolean Enter = true;
 
-    public static int ReadInt()
-    {
-        int result = 0;
-        while (!int.TryParse(Console.ReadLine(), out result))
-        {
-            Console.WriteLine("Вы ввели не число!");
-        }
-        return result;
-    }
-
-    public static bool MapParameter(string[] rawParams, out int containter, BuyGoodParameter parameter)
-    {
-        int index = (int)parameter;
-        string name = Enum.GetName(typeof(BuyGoodParameter), parameter);
-
-        if (!int.TryParse(rawParams[index], out containter))
-        {
-            Console.WriteLine($"Ошибка в параметре {name}, он должен быть числом");
-            return false;
-        }
-        return true;
-    }
-
-    public static int GetTotalPrice(int price, int count)
-    {
-        return price * count;
-    }
-
-    public static bool Exist(int id)
-    {
-        return id > 0 && id < names.Length;
-    }
-    
-    public static void ValidateId(int id)
-    {
-        if (!Exist(id))
-        {
-            throw new ArgumentOutOfRangeException("id");
-        }
-    }
-
-    public static string GetName(int id)
-    {
-        ValidateId(id);
-        return names[id];
-    }
-
-
-    public static int GetPrice(int id)
-    {
-        ValidateId(id);
-        return prices[id];
-    }
-
-    public static int GetAvailableQuantity(int id)
-    {
-        ValidateId(id);
-        return availableQuantity[id];
-    }
-
-    public static bool IsAvailableInQuantity(int id, int count)
-    {
-        return count < 0 || count > GetAvailableQuantity(id);
-    }
-
-    public static string ReadCommand()
-    {
-        Console.WriteLine($"Баланс {balance}");
-        Console.WriteLine("Введите команду:");
-        return Console.ReadLine();
-    }
-
-
-    public static void ExecuteCommand(string command)
-    {
-
-        // Console.Clear();
-        // Console.WriteLine($"Баланс {balance}");
-        // Console.WriteLine("Введите команду:");
-        // command = Console.ReadLine();
-        if(command == "AddMoney")
-        {
-            switch (payment)
-            {
-                case PaymentType.Coins:
-                    for(int i = 0; i < coinsValues.Length; i++)
-                    {
-                        Console.WriteLine($"Сколько монет номиналом {coinsValues[i]} вы хотите внести?");
-                        int count = ReadInt();
-                        
-                        // while(!int.TryParse(Console.ReadLine(), out count))
-                        // {
-                        //     Console.WriteLine("Вы ввели не число!");
-                        // }
-                        coinsQuantity[i] += count;
-                        balance +=  count * coinsValues[i];
-                    }
-                break;
-
-                case PaymentType.Card:
-                    Console.WriteLine("Сколько снять с вашей карты?");
-                    int balanceDelta = ReadInt();
-                    // while(!int.TryParse(Console.ReadLine(), out balanceDelta))
-                    // {
-                    //     Console.WriteLine("Вы ввели не число!");                
-                    // }
-
-                    balance += balanceDelta;
-                    Console.WriteLine("Баланс успешно пополнен");
-                break;
-
-                default:
-                break;
-            }
-        }
-        else if(command == "GetChange")
-        {
-            balance = 0;
-        }
-        else if(command.StartsWith("BuyGood"))
-        {
-            //Разбиение строки на единицы данных
-            string[] rawData = command.Substring("BuyGood ".Length).Split(' ');
-            // //Сопоставление этих данных с переменными (и их типами)
-            if(rawData.Length != 2)
-            {
-                Console.WriteLine("Неправильные аргументы команды");
-                return;
-            }
-
-            if(!MapParameter(rawData, out id, BuyGoodParameter.Id))
-            {
-                return;
-            }
-
-            if (!MapParameter(rawData, out count, BuyGoodParameter.Count))
-            {
-                return;
-            }  
-
-            // int id = Convert.ToInt32(rawData[0]);
-            // int count = Convert.ToInt32(rawData[1]);
-            int totalPrice = GetTotalPrice(prices[id], count);
-            //Проверка корректности этих данных на основе текущего состояния модели.
-            // if(id < 0 || id >= names.Length)
-            // {
-            //     Console.WriteLine("Такого товара нет");
-            //     break;
-            // }
-
-            if (!Exist(id))
-            {
-                Console.WriteLine("Такого товара нет");
-                return;
-            }
-
-            // if(count < 0 || count > availableQuantity[id])
-            // {
-            //     Console.WriteLine("Нет такого количества");
-            //     break;
-            // }
-
-            if (IsAvailableInQuantity(id, count))
-            {
-                Console.WriteLine("Нет такого количества");
-                return;
-            }
-
-            //Выполнение
-            if(balance >= totalPrice)
-            {
-                balance -= totalPrice;
-                availableQuantity[id] -= count;
-            }
-        }
-        else
-        {
-            Console.WriteLine("Команда не определена");
-        }
-        //Enter = Boolean.Parse(Console.ReadLine()); 
-        //Console.ReadKey();
-    }
-
-    public enum PaymentType
-    {
-        Coins,
-        Card
-    }
-
-    public enum BuyGoodParameter    
-    {
-        Id = 0,
-        Count = 1
-    }
-}
-
-// class test
+// while (Enter)
 // {
-//     private static string ReadCommand()
+//     Console.WriteLine($"Баланс {VendingMachine.balance}");
+//     //VendingMachine.coinsQuantity = new int[] { 0, 0, 0, 0 };
+//     string command = VendingMachine.ReadCommand();
+//     VendingMachine.ExecuteCommand(command);
+//     Enter = Boolean.Parse(Console.ReadLine()); 
+// }
+
+
+// class VendingMachine
+// {
+//     public static int           balance           = 0;
+//     public static int[]         coinsQuantity     = { 0, 0, 0, 0}; //1, 2, 5, 10
+//     public static int[]         coinsValues       = { 1, 2, 5, 10};
+//     public static string[]      names             = { "Шоколадка", "Газировка" };
+//     public static int[]         prices            = { 70, 60 };
+//     public static int[]         availableQuantity = { 5, 2};
+//     public static PaymentType   payment           = PaymentType.Card;
+//     public static string        command           = "";    
+//     public static int           id                = 0,
+//                                 count             = 0;
+
+//     public static int ReadInt()
+//     {
+//         int result = 0;
+//         while (!int.TryParse(Console.ReadLine(), out result))
+//         {
+//             Console.WriteLine("Вы ввели не число!");
+//         }
+//         return result;
+//     }
+
+//     public static bool MapParameter(string[] rawParams, out int containter, BuyGoodParameter parameter)
+//     {
+//         int index = (int)parameter;
+//         string name = Enum.GetName(typeof(BuyGoodParameter), parameter);
+
+//         if (!int.TryParse(rawParams[index], out containter))
+//         {
+//             Console.WriteLine($"Ошибка в параметре {name}, он должен быть числом");
+//             return false;
+//         }
+//         return true;
+//     }
+
+//     public static int GetTotalPrice(int price, int count)
+//     {
+//         return price * count;
+//     }
+
+//     public static bool Exist(int id)
+//     {
+//         return id > 0 && id < names.Length;
+//     }
+    
+//     public static void ValidateId(int id)
+//     {
+//         if (!Exist(id))
+//         {
+//             throw new ArgumentOutOfRangeException("id");
+//         }
+//     }
+
+//     public static string GetName(int id)
+//     {
+//         ValidateId(id);
+//         return names[id];
+//     }
+
+
+//     public static int GetPrice(int id)
+//     {
+//         ValidateId(id);
+//         return prices[id];
+//     }
+
+//     public static int GetAvailableQuantity(int id)
+//     {
+//         ValidateId(id);
+//         return availableQuantity[id];
+//     }
+
+//     public static bool IsAvailableInQuantity(int id, int count)
+//     {
+//         return count < 0 || count > GetAvailableQuantity(id);
+//     }
+
+//     public static string ReadCommand()
 //     {
 //         Console.WriteLine($"Баланс {balance}");
 //         Console.WriteLine("Введите команду:");
 //         return Console.ReadLine();
 //     }
+
+
+//     public static void ExecuteCommand(string command)
+//     {
+//         if(command == "AddMoney")
+//         {
+//             switch (payment)
+//             {
+//                 case PaymentType.Coins:
+//                     for(int i = 0; i < coinsValues.Length; i++)
+//                     {
+//                         Console.WriteLine($"Сколько монет номиналом {coinsValues[i]} вы хотите внести?");
+//                         int count = ReadInt();                        
+//                         coinsQuantity[i] += count;
+//                         balance +=  count * coinsValues[i];
+//                     }
+//                 break;
+
+//                 case PaymentType.Card:
+//                     Console.WriteLine("Сколько снять с вашей карты?");
+//                     int balanceDelta = ReadInt();
+//                     balance += balanceDelta;
+//                     Console.WriteLine("Баланс успешно пополнен");
+//                 break;
+
+//                 default:
+//                 break;
+//             }
+//         }
+//         else if(command == "GetChange")
+//         {
+//             balance = 0;
+//         }
+//         else if(command.StartsWith("BuyGood"))
+//         {
+//             //Разбиение строки на единицы данных
+//             string[] rawData = command.Substring("BuyGood ".Length).Split(' ');
+//             // //Сопоставление этих данных с переменными (и их типами)
+//             if(rawData.Length != 2)
+//             {
+//                 Console.WriteLine("Неправильные аргументы команды");
+//                 return;
+//             }
+
+//             if(!MapParameter(rawData, out id, BuyGoodParameter.Id))
+//             {
+//                 return;
+//             }
+
+//             if (!MapParameter(rawData, out count, BuyGoodParameter.Count))
+//             {
+//                 return;
+//             }  
+
+//             int totalPrice = GetTotalPrice(prices[id], count);
+
+//             if (!Exist(id))
+//             {
+//                 Console.WriteLine("Такого товара нет");
+//                 return;
+//             }
+
+//             if (IsAvailableInQuantity(id, count))
+//             {
+//                 Console.WriteLine("Нет такого количества");
+//                 return;
+//             }
+
+//             //Выполнение
+//             if(balance >= totalPrice)
+//             {
+//                 balance -= totalPrice;
+//                 availableQuantity[id] -= count;
+//             }
+//         }
+//         else
+//         {
+//             Console.WriteLine("Команда не определена");
+//         }
+//     }
+
+//     public enum PaymentType
+//     {
+//         Coins,
+//         Card
+//     }
+//     public enum BuyGoodParameter    
+//     {
+//         Id = 0,
+//         Count = 1
+//     }
 // }
-//Console.WriteLine($"Имя - {names[0]}");
-//Console.WriteLine($"Цена - {prices[0]}");
-//Console.WriteLine($"Остаток - {availableQuantity[0]}");
+//__________________________________________________________________________
+
+WendingMachine machine = new WendingMachine(balance: 0, goods: new Good[]
+                                           {new Good("Шоколадка",price: 70, count: 5),
+                                            new Good("Газировка",price: 60, count: 2)});
+
+ICommandInput input = new ConsoleCommandInput(new Router(machine));
+
+while (true)
+{
+    Console.Clear();
+    Console.WriteLine($"Баланс {machine.Balance}");
+    var command = input.GetCommand();
+
+    if (command == null)
+    {
+        Console.WriteLine("Команда не распознана");
+    }
+    else
+    {
+        command.Execute();
+    }
+    
+    Console.ReadKey();
+}
 
 
 
