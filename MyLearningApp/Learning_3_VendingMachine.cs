@@ -1,3 +1,60 @@
+class WendingMachine
+{
+    private Good[] _goods;
+    public int Balance { get; private set; }
+
+    public WendingMachine(int balance, params Good[] goods)
+    {
+        _goods = goods;
+        Balance = balance;
+    }
+
+    public void AddBalance(int delta)
+    {
+        if (delta < 0) 
+            throw new ArgumentOutOfRangeException("delta");
+
+        Balance += delta;
+    }
+    public void DiscardBalance(int delta)
+    {
+        if (delta < 0 || Balance > delta)
+            throw new ArgumentOutOfRangeException("delta");
+
+        Balance -= delta;
+    }
+    public bool IsOrderPossible(IOrder order)
+    {
+        return order.IsAvailable && order.GetTotalPrice() <= Balance;
+    }
+    public bool TryProcessOrder(PayableOrder order)
+    {
+        if (IsOrderPossible(order))
+        {
+            Balance -= order.GetTotalPrice();
+            order.Ship();
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool IsContains(int id)
+    {
+        return id >= 0 && id < _goods.Length;
+    }
+    public Good GetFromId(int id)
+    {
+        if (!IsContains(id)) 
+            throw new ArgumentOutOfRangeException("id");
+
+        return _goods[id];
+    }
+}
+
+
 class Good
 {
     public Good(string name, int price, int count)
@@ -13,9 +70,15 @@ class Good
 interface IOrder
 {
     bool IsAvailable { get; }
-    abstract int GetTotalPrice();
+    abstract int GetTotalPrice(); // Попробовать убрать abstract
     void Ship();
 }
+
+// public abstract class SinglePositionOrder : IOrder
+// {
+//     public abstract void GetTotalPrice();
+
+// }
 
 interface ICommandInput
 {
@@ -72,14 +135,6 @@ class Request
     {
         return correct != Values.Length;
     }
-}
-
-public ICommand GetCommand()
-{
-    string rawCommand = Console.ReadLine();
-    Request request = ParseString(rawCommand);
-
-    return _router.CreateCommand(request);
 }
 
 class Router
@@ -146,15 +201,14 @@ class Router
     }
     class DefaultState : RouterState
     {
-    public DefaultState(Router router) : base(router)
-    {
+        public DefaultState(Router router) : base(router)
+        {
 
-    }
-    public override IOrder
-    MakeOrder(Request request)
-    {
-        return new Order(Router._machine.GetFromId(request.Values[0]), request.Values[1]);
-    }
+        }
+        public override IOrder MakeOrder(Request request)
+        {
+            return new PayableOrder(Router._machine.GetFromId(request.Values[0]), request.Values[1]);
+        }
     }
     class AdminState : RouterState
     {
@@ -162,126 +216,194 @@ class Router
         {
 
         }
-        public override IOrder
-        MakeOrder(Request request)
+        public override IOrder MakeOrder(Request request)
         {
             return new FreeOrder(Router._machine.GetFromId(request.Values[0]), request.Values[1]);
         }   
     }
 }
 
-
-class Order : IOrder
+class AddMoney : ICommand
 {
-    private Good _good;
-    private int _count;
+    private WendingMachine _machine;
+    private int _money;
+    public AddMoney(WendingMachine machine, int money)
+    {
+        _machine = machine;
+        _money = money;
+    }
+    public void Execute()
+    {
+        _machine.AddBalance(_money);
+    }
+}
+
+class BuyGood : ICommand
+{
+    private WendingMachine _machine;
+    private IOrder _order;
+    public BuyGood(WendingMachine machine,
+    IOrder order)
+    {
+        _machine = machine;
+        _order = order;
+    }
+    public void Execute()
+    {
+        _machine.TryProcessOrder(_order);
+    }
+}
+
+class GetChange : ICommand
+{
+    private WendingMachine _machine;
+    public GetChange(WendingMachine machine)
+    {
+        _machine = machine;
+    }
+    public void Execute()
+    {
+        _machine.DiscardBalance(_machine.Balance);
+    }
+}
+
+class Login : ICommand
+{
+    private Router _router;
+    public Login(Router router)
+    {
+        _router = router;
+    }
+    public void Execute()
+    {
+        _router.Login();
+    }
+}
+
+class ShowCommands : ICommand
+{
+    private string[] _commands;
+    public ShowCommands(params string[] commands)
+    {
+        _commands = commands;
+    }
+    public void Execute()
+    {
+        foreach (string command in _commands)
+        {
+            Console.WriteLine(command);
+        }
+    }
+}
+
+
+// class Order : IOrder
+// {
+//     private Good _good;
+//     private int _count;
+//     public Order(Good good, int count)
+//     {
+//         if (count < 0) 
+//             throw new ArgumentOutOfRangeException();
+
+//         _good = good;
+//         _count = count;
+//     }
+//     public bool IsAvailable 
+//     {    
+//         get
+//         {
+//             return _count <= _good.Count;
+//         }
+//     }
+//     public int GetTotalPrice()
+//     {
+//         return _good.Price * _count;
+//     }
+
+//     public void Ship()
+//     {
+//         _good.Count -= _count;
+//     }
+// }
+
+// class FreeOrder : IOrder
+// {
+//     private Good _good;
+//     private int _count;
+//     public FreeOrder(Good good, int count)
+//     {
+//         if (count < 0) 
+//             throw new ArgumentOutOfRangeException();
+
+//         _good = good;
+//         _count = count;
+//     }
+//     public bool IsAvailable
+//     {
+//         get
+//         {
+//             return _count <= _good.Count;
+//         }
+//     }
+//     public int GetTotalPrice()
+//     {
+//         return 0;
+//     }
+//     public void Ship()
+//     {
+//         _good.Count -= _count;
+//     }
+// }
+
+abstract class Order : IOrder
+{
+    protected readonly Good Good;
+    protected readonly int Count;
     public Order(Good good, int count)
     {
         if (count < 0) 
             throw new ArgumentOutOfRangeException();
 
-        _good = good;
-        _count = count;
+        Good = good;
+        Count = count;
     }
     public bool IsAvailable 
-    {    
+    {
         get
         {
-            return _count <= _good.Count;
+            return Count<= Good.Count;
         }
     }
-    public int GetTotalPrice()
-    {
-        return _good.Price * _count;
-    }
-
+    public abstract int GetTotalPrice();
     public void Ship()
     {
-        _good.Count -= _count;
+        Good.Count -= Count;
     }
 }
-
-class FreeOrder : IOrder
+class PayableOrder : Order
 {
-    private Good _good;
-    private int _count;
-    public FreeOrder(Good good, int count)
+    public PayableOrder(Good good, int count) : base(good, count)
     {
-        if (count < 0) 
-            throw new ArgumentOutOfRangeException();
 
-        _good = good;
-        _count = count;
     }
-    public bool IsAvailable
+    public override int GetTotalPrice()
     {
-        get
-        {
-            return _count <= _good.Count;
-        }
+        return Good.Price * Count;
     }
-    public int GetTotalPrice()
+}
+class FreeOrder : Order
+{
+    public FreeOrder(Good good, int count) : base(good, count)
+    {
+        
+    }
+    public override int GetTotalPrice()
     {
         return 0;
     }
-    public void Ship()
-    {
-        _good.Count -= _count;
-    }
 }
 
 
-class WendingMachine
-{
-    private Good[] _goods;
-    public int Balance { get; private set; }
 
-    public WendingMachine(int balance, params Good[] goods)
-    {
-        _goods = goods;
-        Balance = balance;
-    }
 
-    public void AddBalance(int delta)
-    {
-        if (delta < 0) 
-            throw new ArgumentOutOfRangeException("delta");
-
-        Balance += delta;
-    }
-    public void DiscardBalance(int delta)
-    {
-        if (delta < 0 || Balance > delta)
-            throw new ArgumentOutOfRangeException("delta");
-
-        Balance -= delta;
-    }
-    public bool IsOrderPossible(IOrder order)
-    {
-        return order.IsAvailable && order.GetTotalPrice() <= Balance;
-    }
-    public bool TryProcessOrder(IOrder order)
-    {
-        if (IsOrderPossible(order))
-        {
-            Balance -= order.GetTotalPrice();
-            order.Ship();
-        return true;
-        }
-            else
-        {
-            return false;
-        }
-    }
-    public bool IsContains(int id)
-    {
-        return id >= 0 && id < _goods.Length;
-    }
-    public Good GetFromId(int id)
-    {
-        if (!IsContains(id)) 
-            throw new ArgumentOutOfRangeException("id");
-
-        return _goods[id];
-    }
-}
