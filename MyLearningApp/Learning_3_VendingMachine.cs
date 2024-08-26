@@ -67,12 +67,7 @@ class Good
     public int Price { get; private set; }
     public int Count { get; set; }
 }
-interface IOrder
-{
-    bool IsAvailable { get; }
-    abstract int GetTotalPrice(); // Попробовать убрать abstract
-    void Ship();
-}
+
 
 // public abstract class SinglePositionOrder : IOrder
 // {
@@ -137,6 +132,7 @@ class Request
     }
 }
 
+//Данную часть кода потребуется раскомментить после отработки 
 class Router
 {
     private WendingMachine _machine;
@@ -151,28 +147,31 @@ class Router
         switch (request.Command)
         {
             case "AddMoney":
-                if (request.IsIncorectValuesCount(1)) 
+                if (request.IsIncorectValuesCount(1))
                     return null;
-                
+
                 return new AddMoney(_machine, request.Values[0]);
             case "GetChange":
-                if (request.IsIncorectValuesCount(0)) 
-                    return  null;
+                if (request.IsIncorectValuesCount(0))
+                    return null;
 
                 return new GetChange(_machine);
             case "BuyGood":
-                if (request.IsIncorectValuesCount(2)) 
+                if (request.IsIncorectValuesCount(2))
+                    return null;
+                //return new BuyGood(_machine, _state.MakeOrder(request));
+                if (_state is DefaultState)
+                    return new BuyGood(_machine, _state.MakeOrder(request) as PayableOrder);
+
+                return null;
+            case "ShowCommands":
+                if (request.IsIncorectValuesCount(0))
                     return null;
 
-                return new BuyGood(_machine, _state.MakeOrder(request));
-            case "ShowCommands":
-                if(request.IsIncorectValuesCount(0)) 
-                return null;
-                
                 return new ShowCommands("AddMoney", "GetChange",
                                         "BuyGood", "ShowCommands");
             case "Login":
-                if(request.IsIncorectValuesCount(0)) 
+                if (request.IsIncorectValuesCount(0))
                     return null;
 
                 return new Login(this);
@@ -190,6 +189,7 @@ class Router
     }
     abstract class RouterState
     {
+
         protected readonly Router Router;
         public RouterState(Router router)
         {
@@ -219,7 +219,7 @@ class Router
         public override IOrder MakeOrder(Request request)
         {
             return new FreeOrder(Router._machine.GetFromId(request.Values[0]), request.Values[1]);
-        }   
+        }
     }
 }
 
@@ -241,16 +241,17 @@ class AddMoney : ICommand
 class BuyGood : ICommand
 {
     private WendingMachine _machine;
-    private IOrder _order;
-    public BuyGood(WendingMachine machine,
-    IOrder order)
+    //private IOrder         _order;
+    private PayableOrder   _payableOrder;
+    public BuyGood(WendingMachine machine, PayableOrder payableOrder) // IOrder order)
     {
         _machine = machine;
-        _order = order;
+        //_order = order;
+        _payableOrder = payableOrder;
     }
     public void Execute()
     {
-        _machine.TryProcessOrder(_order);
+        _machine.TryProcessOrder(_payableOrder);
     }
 }
 
@@ -355,6 +356,13 @@ class ShowCommands : ICommand
 //         _good.Count -= _count;
 //     }
 // }
+
+interface IOrder
+{
+    bool IsAvailable { get; }
+    abstract int GetTotalPrice(); // Попробовать убрать abstract
+    void Ship();
+}
 
 abstract class Order : IOrder
 {
