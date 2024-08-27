@@ -1,3 +1,6 @@
+using System.Reflection;
+using System.Reflection.Metadata;
+
 class WendingMachine
 {
     private Good[] _goods;
@@ -99,7 +102,7 @@ class ConsoleCommandInput : ICommandInput
 
         return _router.CreateCommand(request);
     }
-    private Request ParseString(string input)
+    private Request ParseString(string input) 
     {
         string[] terms = input.Split(' ');
         int[] values = new int[0];
@@ -137,13 +140,33 @@ class Router
 {
     private WendingMachine _machine;
     private RouterState _state;
+    private readonly Type _commandBaseType = typeof(ICommand);
+    private Dictionary<Type, object> _dependecies;
     public Router(WendingMachine machine)
     {
         _machine = machine;
         _state = new DefaultState(this);
+
+        _dependecies = new Dictionary<Type, object>()
+        {
+            { typeof(WendingMachine), _machine},
+            { typeof(Router), this }
+        };
     }
     public ICommand CreateCommand(Request request)
     {
+        var commandType = GetCommandTypeByName(request.Command);
+
+        if (commandType != null)
+        {
+            var instance = CreateInstance(commandType, request);
+            return instance;
+        }
+        else
+        {
+            return null;
+        }
+
         switch (request.Command)
         {
             case "AddMoney":
@@ -179,13 +202,89 @@ class Router
                 return null;
         }
     }
-    public void Login()
+    void Login() //public
     {
         _state = new AdminState(this);
     }
-    public void Logout()
+    void Logout() //public
     {
         _state = new DefaultState(this);
+    }
+
+    IEnumerable<string> GetCommands() //public
+    {
+        return GetCommandsTypes().Select(type => type.Name);
+    }
+
+    object[] ResolveDependenciesAndMerge(ConstructorInfo constructor, Request request) //private
+    {
+        List<object> args = new List<object>();
+        Queue<int> requestArgs = new
+        Queue<int>(request.Values);
+        foreach (var parameter in
+
+        constructor.GetParameters())
+        {
+            if (_dependecies.TryGetValue(parameter.Parameter Type, out object value))
+            {
+                args.Add(value);
+            }
+            else
+            {
+                if (requestArgs.Count == 0)
+                    return null;
+                args.Add(requestArgs.Dequeue());
+            }
+        }
+        if (args.Count == constructor.GetParameters().Length)
+        {
+            return args.ToArray();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    IEnumerable<Type> GetCommandsTypes() //private
+    {
+        return AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .SelectMany(assembly =>
+                assembly.GetTypes())
+                .Where(type =>
+                _commandBaseType.IsAssignableFrom(type))
+                .Where(type => IsRealClass(type));
+    }
+
+    Type GetCommandTypeByName(string name) //private
+    {
+        return GetCommandsTypes()
+                .Where(type => type.Name == name)
+                .FirstOrDefault();
+    }
+
+    bool IsRealClass(Type testType) //private
+    {
+        return testType.IsAbstract == false
+                && testType.IsGenericTypeDefinition == false
+                && testType.IsInterface == false;
+    }
+
+
+    ICommand CreateInstance(Type type, Request request) //private
+    {
+        ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+        foreach (var ctor in constructors)
+        {
+            var args = ResolveDependeciesAndMerge(ctor, request);
+            if (args != null)
+            {
+                return (ICommand)ctor.Invoke(args);
+            }
+        }
+        return null;
     }
     abstract class RouterState
     {
@@ -281,16 +380,32 @@ class Login : ICommand
     }
 }
 
+//class ShowCommands : ICommand
+//{
+//    private string[] _commands;
+//    public ShowCommands(params string[] commands)
+//    {
+//        _commands = commands;
+//    }
+//    public void Execute()
+//    {
+//        foreach (string command in _commands)
+//        {
+//            Console.WriteLine(command);
+//        }
+//    }
+//}
+
 class ShowCommands : ICommand
 {
-    private string[] _commands;
-    public ShowCommands(params string[] commands)
+    private Router _router;
+    public ShowCommands(Router router)
     {
-        _commands = commands;
+        _router = router;
     }
     public void Execute()
     {
-        foreach (string command in _commands)
+        foreach (var command in _router.GetCommands())
         {
             Console.WriteLine(command);
         }
@@ -411,6 +526,8 @@ class FreeOrder : Order
         return 0;
     }
 }
+
+
 
 
 

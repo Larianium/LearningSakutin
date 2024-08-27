@@ -543,7 +543,7 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 // }
 //__________________________________________________________________________
 
-WendingMachine machine = new WendingMachine(balance: 0, goods: new Good[]
+WendingMachine machine = new WendingMachine(balance: 1000, goods: new Good[]
                                            {new Good("Шоколадка",price: 70, count: 5),
                                             new Good("Газировка",price: 60, count: 2)});
 
@@ -566,6 +566,8 @@ while (true)
     
     Console.ReadKey();
 }
+
+
 
 
 
