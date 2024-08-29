@@ -133,6 +133,10 @@ class Request
     {
         return correct != Values.Length;
     }
+
+    public bool TryGetValue(string name, out int value)
+    {
+    }
 }
 
 //Данную часть кода потребуется раскомментить после отработки 
@@ -202,28 +206,30 @@ class Router
                 return null;
         }
     }
-    void Login() //public
+    public void Login() //public
     {
         _state = new AdminState(this);
     }
-    void Logout() //public
+    public void Logout() //public
     {
         _state = new DefaultState(this);
     }
 
-    IEnumerable<string> GetCommands() //public
+    public IEnumerable<string> GetCommands() //public
     {
-        return GetCommandsTypes().Select(type => type.Name);
+        return GetCommandsTypes()
+                //.Select(type => type.Name);
+                .SelectMany(type => type.GetCustomAttributes<CommandAttribute>())
+                .Select(attribute => attribute.CommandName);
     }
 
-    object[] ResolveDependenciesAndMerge(ConstructorInfo constructor, Request request) //private
+    private object[] ResolveDependenciesAndMerge(ConstructorInfo constructor, Request request) //private
     {
         List<object> args = new List<object>();
-        Queue<int> requestArgs = new
-        Queue<int>(request.Values);
-        foreach (var parameter in
 
-        constructor.GetParameters())
+        Queue<int> requestArgs = new Queue<int>(request.Values);
+
+        foreach (var parameter in constructor.GetParameters())
         {
             if (_dependecies.TryGetValue(parameter.Parameter Type, out object value))
             {
@@ -231,9 +237,18 @@ class Router
             }
             else
             {
-                if (requestArgs.Count == 0)
+                //if (requestArgs.Count == 0)
+                //    return null;
+                //args.Add(requestArgs.Dequeue());
+
+                if(request.TryGetValue(parameter.Name, out int arg))
+                {
+                    args.Add(arg);
+                }
+                else
+                {
                     return null;
-                args.Add(requestArgs.Dequeue());
+                }
             }
         }
         if (args.Count == constructor.GetParameters().Length)
@@ -246,7 +261,7 @@ class Router
         }
     }
 
-    IEnumerable<Type> GetCommandsTypes() //private
+    private IEnumerable<Type> GetCommandsTypes() //private
     {
         return AppDomain
                 .CurrentDomain
@@ -258,10 +273,13 @@ class Router
                 .Where(type => IsRealClass(type));
     }
 
-    Type GetCommandTypeByName(string name) //private
+    private Type GetCommandTypeByName(string name) //private
     {
         return GetCommandsTypes()
-                .Where(type => type.Name == name)
+                //.Where(type => type.Name == name)
+                //.FirstOrDefault();
+                .Where(type => type.GetCustomAttributes<CommandAttribute>()
+                .Any(attribute => attribute.CommandName == name))
                 .FirstOrDefault();
     }
 
@@ -322,6 +340,7 @@ class Router
     }
 }
 
+[Command("AddMoney")]
 class AddMoney : ICommand
 {
     private WendingMachine _machine;
@@ -527,7 +546,16 @@ class FreeOrder : Order
     }
 }
 
-
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
+class CommandAttribute : Attribute
+{
+    public string CommandName;
+    public CommandAttribute(string
+    commandName)
+    {
+        CommandName = commandName;
+    }
+}
 
 
 
