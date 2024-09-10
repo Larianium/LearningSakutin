@@ -569,6 +569,27 @@ while (true)
 
 
 
+private static Dictionary<int, int> _fibonacciResults = new Dictionary<int,int>();
+
+static int FibonacciMemoization(int n)
+{
+    if(_fibonacciResults.TryGetValue(n, out int value))
+    {
+        return value;
+    }
+    else
+    {
+        if (n < 3) 
+            _fibonacciResults.Add(n,1);
+        else
+        {
+            _fibonacciResults.Add(n, FibonacciMemoization(n - 1) + FibonacciMemoization(n - 2));
+        }
+    }
+    return _fibonacciResults[n];
+}
+
+
 
 
 
