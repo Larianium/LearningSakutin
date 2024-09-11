@@ -543,56 +543,127 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 // }
 //__________________________________________________________________________
 
-WendingMachine machine = new WendingMachine(balance: 1000, goods: new Good[]
-                                           {new Good("Шоколадка",price: 70, count: 5),
-                                            new Good("Газировка",price: 60, count: 2)});
+// WendingMachine machine = new WendingMachine(balance: 1000, goods: new Good[]
+//                                            {new Good("Шоколадка",price: 70, count: 5),
+//                                             new Good("Газировка",price: 60, count: 2)});
 
-ICommandInput input = new ConsoleCommandInput(new Router(machine));
+// ICommandInput input = new ConsoleCommandInput(new Router(machine));
 
-while (true)
-{
-    Console.Clear();
-    Console.WriteLine($"Баланс {machine.Balance}");
-    var command = input.GetCommand();
+// while (true)
+// {
+//     Console.Clear();
+//     Console.WriteLine($"Баланс {machine.Balance}");
+//     var command = input.GetCommand();
 
-    if (command == null)
-    {
-        Console.WriteLine("Команда не распознана");
-    }
-    else
-    {
-        command.Execute();
-    }
+//     if (command == null)
+//     {
+//         Console.WriteLine("Команда не распознана");
+//     }
+//     else
+//     {
+//         command.Execute();
+//     }
     
-    Console.ReadKey();
+//     Console.ReadKey();
+// }
+
+
+
+// private static Dictionary<int, int> _fibonacciResults = new Dictionary<int,int>();
+
+// static int FibonacciMemoization(int n)
+// {
+//     if(_fibonacciResults.TryGetValue(n, out int value))
+//     {
+//         return value;
+//     }
+//     else
+//     {
+//         if (n < 3) 
+//             _fibonacciResults.Add(n,1);
+//         else
+//         {
+//             _fibonacciResults.Add(n, FibonacciMemoization(n - 1) + FibonacciMemoization(n - 2));
+//         }
+//     }
+//     return _fibonacciResults[n];
+// }
+
+
+
+static int GetChangeSimple(int[] values, int change)
+{
+    int count = 0;
+    foreach(int value in values.Distinct().OrderByDescending(x => x))
+    {
+        count += change / value;
+        change = change % value;
+
+        if (change == 0) 
+            return count;
+    }
+
+    return 0;
 }
 
+int[] values = {1, 5, 10, 15, 20};
+int change = 50;
+
+//Console.WriteLine(GetChangeSimple(values, change));
 
 
-private static Dictionary<int, int> _fibonacciResults = new Dictionary<int,int>();
-
-static int FibonacciMemoization(int n)
+static int GetChange(int[] values, int change)
 {
-    if(_fibonacciResults.TryGetValue(n, out int value))
+    int minCoins = change;
+    if (values.Contains(minCoins))
     {
-        return value;
+        return 1;
     }
     else
     {
-        if (n < 3) 
-            _fibonacciResults.Add(n,1);
-        else
+        foreach (var value in values.Where(x => x <= change))
         {
-            _fibonacciResults.Add(n, FibonacciMemoization(n - 1) + FibonacciMemoization(n - 2));
+            int numCoins = 1 + GetChange(values, change - value);
+            if(numCoins < minCoins)
+            {
+                minCoins = numCoins;
+            }
+        }
+        return minCoins;
+    }
+}
+
+//Console.WriteLine(GetChange(values, change));
+
+//Оптимизация метода GetChange через мемоизацию
+static int GetChangeMemoization(int[] values, int change, int[] getChangeResults)
+{
+    int minCoins = change;
+    if (values.Contains(minCoins))
+    {
+        getChangeResults[change] = 1;
+        return 1;
+    }
+    else if (getChangeResults[change] != 0)
+    {
+        return getChangeResults[change];
+    }
+    else
+    {
+        foreach (var value in values.Where(x => x <= change))
+        {
+            int numCoins = 1 + GetChangeMemoization(values, change - value);//, getChangeResults);
+            if (numCoins < minCoins)
+            {
+                minCoins = numCoins;
+                getChangeResults[change] = minCoins;
+            }
         }
     }
-    return _fibonacciResults[n];
+    return minCoins;
 }
 
-
-
-
-
+Console.WriteLine(GetChangeMemoization(values, change));
 
 
 
