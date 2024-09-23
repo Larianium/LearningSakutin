@@ -8,99 +8,99 @@
 Далее, через оператор индексации,
 проинициализируйте каждый элемент*/
 
-string[] array = new string[5];
-string[] array2 = array;
+// string[] array = new string[5];
+// string[] array2 = array;
 
-for (int i = 0; i < array.Length; i++)
-{
-    array[i] = "array" + i;
-    Console.WriteLine(array2[i]);    
-}
+// for (int i = 0; i < array.Length; i++)
+// {
+//     array[i] = "array" + i;
+//     Console.WriteLine(array2[i]);    
+// }
 
-Console.WriteLine("________________________________________");
+// Console.WriteLine("________________________________________");
 /*Напишите программу, которая выведет сумму всех
 элементов массива.
 */
-int[] numbers = new int[3];
-numbers[0] = 1;
-numbers[1] = 15;
-numbers[2] = 2;
+// int[] numbers = new int[3];
+// numbers[0] = 1;
+// numbers[1] = 15;
+// numbers[2] = 2;
 
-for (int i = 0; i < numbers.Length;i++)
-{
-    Console.WriteLine(numbers[i]); 
-}
+// for (int i = 0; i < numbers.Length;i++)
+// {
+//     Console.WriteLine(numbers[i]); 
+// }
 
-Console.WriteLine("________________________________________");
+// Console.WriteLine("________________________________________");
 /*Напишите программу, которая выведет сумму всех
 элементов массива.
 */
-int[] numbers_2 = new int[3];
-int sum;
+// int[] numbers_2 = new int[3];
+// int sum;
 
-numbers_2[0] = 1;
-numbers_2[1] = 15;
-numbers_2[2] = 2;
+// numbers_2[0] = 1;
+// numbers_2[1] = 15;
+// numbers_2[2] = 2;
 
-sum = numbers_2.Sum();
-Console.WriteLine(sum);
+// sum = numbers_2.Sum();
+// Console.WriteLine(sum);
 
-Console.WriteLine("________________________________________");
+// Console.WriteLine("________________________________________");
 /*Напишите программу, которая выведет
 максимальное число в массиве.*/
 
 
-int[] numbers_3 = new int[3];
-int max;
+// int[] numbers_3 = new int[3];
+// int max;
 
-numbers_3[0] = 1;
-numbers_3[1] = 15;
-numbers_3[2] = 2;
+// numbers_3[0] = 1;
+// numbers_3[1] = 15;
+// numbers_3[2] = 2;
 
-max = numbers_3.Max();
-Console.WriteLine(max);
+// max = numbers_3.Max();
+// Console.WriteLine(max);
 
-Console.WriteLine("________________________________________");
+// Console.WriteLine("________________________________________");
 /*Пример 2-х мерного массива*/
 
-int[,] map = new int[3, 3];
-map[0, 0] = 1;
-map[1, 0] = 2;
-map[2, 0] = 3;
-map[0, 1] = 1;
-map[2, 1] = 3;
-map[0, 2] = 1;
-map[1, 2] = 2;
-map[2, 2] = 3;
-for(int x = 0; x < map.GetLength(0); x++)
-{
-    for(int y = 0;y < map.GetLength(1); y++)
-    {
-        Console.Write(map[x,y]);
-    }
-    Console.WriteLine();
-}
+// int[,] map = new int[3, 3];
+// map[0, 0] = 1;
+// map[1, 0] = 2;
+// map[2, 0] = 3;
+// map[0, 1] = 1;
+// map[2, 1] = 3;
+// map[0, 2] = 1;
+// map[1, 2] = 2;
+// map[2, 2] = 3;
+// for(int x = 0; x < map.GetLength(0); x++)
+// {
+//     for(int y = 0;y < map.GetLength(1); y++)
+//     {
+//         Console.Write(map[x,y]);
+//     }
+//     Console.WriteLine();
+// }
 
-Console.WriteLine("________________________________________");
+// Console.WriteLine("________________________________________");
 /*Массив массивов/кортеж */
 
-string[][] street = new string[][]
-    {
-    new string[] { "Mary", "Thomas" },
-    new string[] { "Carl" },
-    new string[] { "Bob", "Jhonatan", "Alex"}
-    };
+// string[][] street = new string[][]
+//     {
+//     new string[] { "Mary", "Thomas" },
+//     new string[] { "Carl" },
+//     new string[] { "Bob", "Jhonatan", "Alex"}
+//     };
 
-for(int i = 0; i < street.Length; i++)
-{
-    Console.WriteLine($"Дом {i + 1}:");
-    for(int p = 0; p < street[i].Length; p++)
-    {
-        Console.WriteLine(street[i][p]);
-    }
-}
+// for(int i = 0; i < street.Length; i++)
+// {
+//     Console.WriteLine($"Дом {i + 1}:");
+//     for(int p = 0; p < street[i].Length; p++)
+//     {
+//         Console.WriteLine(street[i][p]);
+//     }
+// }
 
-Console.WriteLine("________________________________________");
+// Console.WriteLine("________________________________________");
 /*
 //Пример
 int     countStr;
@@ -591,79 +591,79 @@ static void WriteColoredMessage(string message, ConsoleColor color)
 
 
 
-static int GetChangeSimple(int[] values, int change)
-{
-    int count = 0;
-    foreach(int value in values.Distinct().OrderByDescending(x => x))
-    {
-        count += change / value;
-        change = change % value;
+// static int GetChangeSimple(int[] values, int change)
+// {
+//     int count = 0;
+//     foreach(int value in values.Distinct().OrderByDescending(x => x))
+//     {
+//         count += change / value;
+//         change = change % value;
 
-        if (change == 0) 
-            return count;
-    }
+//         if (change == 0) 
+//             return count;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
-int[] values = {1, 5, 10, 15, 20};
-int change = 50;
+// int[] values = {1, 5, 10, 15, 20};
+// int change = 50;
 
-//Console.WriteLine(GetChangeSimple(values, change));
+// //Console.WriteLine(GetChangeSimple(values, change));
 
 
-static int GetChange(int[] values, int change)
-{
-    int minCoins = change;
-    if (values.Contains(minCoins))
-    {
-        return 1;
-    }
-    else
-    {
-        foreach (var value in values.Where(x => x <= change))
-        {
-            int numCoins = 1 + GetChange(values, change - value);
-            if(numCoins < minCoins)
-            {
-                minCoins = numCoins;
-            }
-        }
-        return minCoins;
-    }
-}
+// static int GetChange(int[] values, int change)
+// {
+//     int minCoins = change;
+//     if (values.Contains(minCoins))
+//     {
+//         return 1;
+//     }
+//     else
+//     {
+//         foreach (var value in values.Where(x => x <= change))
+//         {
+//             int numCoins = 1 + GetChange(values, change - value);
+//             if(numCoins < minCoins)
+//             {
+//                 minCoins = numCoins;
+//             }
+//         }
+//         return minCoins;
+//     }
+// }
 
 //Console.WriteLine(GetChange(values, change));
 
 //Оптимизация метода GetChange через мемоизацию
-static int GetChangeMemoization(int[] values, int change, int[] getChangeResults)
-{
-    int minCoins = change;
-    if (values.Contains(minCoins))
-    {
-        getChangeResults[change] = 1;
-        return 1;
-    }
-    else if (getChangeResults[change] != 0)
-    {
-        return getChangeResults[change];
-    }
-    else
-    {
-        foreach (var value in values.Where(x => x <= change))
-        {
-            int numCoins = 1 + GetChangeMemoization(values, change - value);//, getChangeResults);
-            if (numCoins < minCoins)
-            {
-                minCoins = numCoins;
-                getChangeResults[change] = minCoins;
-            }
-        }
-    }
-    return minCoins;
-}
+// static int GetChangeMemoization(int[] values, int change, int[] getChangeResults)
+// {
+//     int minCoins = change;
+//     if (values.Contains(minCoins))
+//     {
+//         getChangeResults[change] = 1;
+//         return 1;
+//     }
+//     else if (getChangeResults[change] != 0)
+//     {
+//         return getChangeResults[change];
+//     }
+//     else
+//     {
+//         foreach (var value in values.Where(x => x <= change))
+//         {
+//             int numCoins = 1 + GetChangeMemoization(values, change - value);//, getChangeResults);
+//             if (numCoins < minCoins)
+//             {
+//                 minCoins = numCoins;
+//                 getChangeResults[change] = minCoins;
+//             }
+//         }
+//     }
+//     return minCoins;
+// }
 
-Console.WriteLine(GetChangeMemoization(values, change));
+// Console.WriteLine(GetChangeMemoization(values, change));
 
 
 
